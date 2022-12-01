@@ -1,0 +1,59 @@
+//Sort Color in JAVA
+class Solution {
+    public void sortColors(int[] nums) {
+        int l = 0;
+        int curr = 0;
+        int h = nums.length - 1;
+        
+        while(curr <= h){
+            if(nums[curr] == 0){
+                int temp = nums[l];
+                nums[l] = nums[curr];
+                nums[curr] = temp;
+                
+                l++;
+                curr++;
+            }
+            else if(nums[curr] == 1){
+                curr++;
+            }
+            else{
+               int temp = nums[h];
+                nums[h] = nums[curr];
+                nums[curr] = temp;
+                
+                h--;
+            }
+        }
+    }
+}
+
+//Group Anagrams
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<HashMap<Character , Integer> , ArrayList<String>> bigmap = new HashMap<>();
+        
+        for(String str : strs){ //for every string in strs array
+            HashMap<Character,Integer> freqmap = new HashMap<>();
+            for(int i = 0 ; i < str.length() ; i++){ // for every char in every index of string
+                char ch = str.charAt(i);
+                freqmap.put(ch, freqmap.getOrDefault(ch , 0) + 1);
+            }
+            
+            if(bigmap.containsKey(freqmap) == false){
+                ArrayList<String> list = new ArrayList<>();
+                list.add(str);
+                bigmap.put(freqmap,list);
+            }
+            else{
+                ArrayList<String> list = bigmap.get(freqmap);
+                list.add(str);
+            }
+        }
+        List<List<String>> res = new ArrayList<>();
+        for(List<String> val : bigmap.values()){
+            res.add(val);
+        }
+        return res; 
+    }
+}
